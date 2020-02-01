@@ -12,13 +12,10 @@
         * fielding table
 
     DIMENSIONS ::
-        * pos, po
+        * sort_pos
 
     FACTS ::
-        * A case when statement can be used to sort
-		  the positions into groups.
-		* A sum statement can be used to get the total
-		  number of putouts.
+        * tot_po
 
     FILTERS ::
         * Only need putouts from the year 2016.
