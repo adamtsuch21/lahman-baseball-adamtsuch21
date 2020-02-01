@@ -1,55 +1,44 @@
 /*
     QUESTION ::
-       * What range of years does the provided database cover?
+       * What range of years does the provided database
+	     cover?
 	   
     SOURCES ::
         * pitching, batting, fielding
 		
     DIMENSIONS ::
-        * yearid
+        * None
 
     FACTS ::
-        * the main tables from the database are pitching, batting, and
-		fielding
+        * min_year, max_year
 
     FILTERS ::
-        * grab only distinct years
+        * None
 
     DESCRIPTION ::
-        * To find the lowest yearid, I selected the distinct yearids
-		from the pitching, batting,and fielding tables,
-		then I did a union to combine them together,
-		and ordered it with the lowest yearid on top,
-		with only the top result being shown.
-		I then repeat the same for the highest yearid,
-		but ordered it in descending order to show the
-		highest yearid on top.
+        * Unioned pitching, batting, and fielding 
+		  together and found the min and max year
+		  for each. I placed that in a subquery
+		  and then in the main query found the 
+		  overall min and max year from all 3 tables.
 
     ANSWER ::
         1871-2016
 
 */
 
---Shows lowest yearid from pitching, batting, and fielding tables
-SELECT DISTINCT yearid
-FROM pitching
-UNION ALL
-SELECT DISTINCT yearid
-FROM batting
-UNION ALL
-SELECT DISTINCT yearid
-FROM fielding
-ORDER BY yearid
-LIMIT 1;
-
---Shows highest yearid from pitching, batting, and fielding tables
-SELECT DISTINCT yearid
-FROM pitching
-UNION ALL
-SELECT DISTINCT yearid
-FROM batting
-UNION ALL
-SELECT DISTINCT yearid
-FROM fielding
-ORDER BY yearid DESC
-LIMIT 1;
+SELECT MIN(min_year) AS first_year, 
+	   MAX(max_year) AS last_year
+FROM(
+	SELECT MIN(yearid) AS min_year,
+		   MAX(yearid) AS max_year
+	FROM pitching
+    UNION ALL
+    SELECT MIN(yearid) AS min_year,
+		   MAX(yearid) AS max_year
+    FROM batting
+    UNION ALL
+    SELECT MIN(yearid) AS min_year,
+		   MAX(yearid) AS max_year
+    FROM fielding
+	) AS year_union;
