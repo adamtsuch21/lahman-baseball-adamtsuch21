@@ -8,15 +8,20 @@
 		  base or being caught stealing.) Consider
 		  only players who attempted at least 20 
 		  stolen bases.
+
     SOURCES ::
         * people, batting
+
     DIMENSIONS ::
         * namefirst, namelast
+
     FACTS ::
         * sb_pct
+
     FILTERS ::
         * Only for year 2016.
 		* Only players  with at least 20 steals.
+
     DESCRIPTION ::
         * I selected the stolen bases and caught
 		  stealing columns from the batting table, and
@@ -28,9 +33,11 @@
 		  I filtered for only the yearid of 2016 and at
 		  least 20 stolen base attempts, and ordered by
 		  stolen base percentage in descending order.
+
     ANSWER ::
         Name: Chris Owings
 		sb_pct: 91.30 %
+
 */
 
 SELECT namefirst AS first_name, namelast AS last_name,

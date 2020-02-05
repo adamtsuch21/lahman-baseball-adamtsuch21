@@ -12,13 +12,10 @@
         * fielding table
 
     DIMENSIONS ::
-        * pos, po
+        * sort_pos
 
     FACTS ::
-        * A case when statement can be used to sort
-		  the positions into groups.
-		* A sum statement can be used to get the total
-		  number of putouts.
+        * tot_po
 
     FILTERS ::
         * Only need putouts from the year 2016.
@@ -48,8 +45,8 @@ SELECT CASE WHEN pos = 'OF' THEN 'Outfield'
 			WHEN pos = 'P'  THEN 'Battery'
 			WHEN pos = 'C'  THEN 'Battery'
 			END AS sort_pos,
-		SUM(po) AS tot_po
+		SUM(po) AS total_po
 FROM fielding
 WHERE yearid = 2016
 GROUP BY sort_pos
-ORDER BY tot_po DESC;
+ORDER BY total_po DESC;

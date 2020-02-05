@@ -4,15 +4,20 @@
 		in both the National League (NL) and the American League 
 		(AL)? Give their full name and the teams that they were 
 		managing when they won the award.
+
     SOURCES ::
         * awardsmanagers, people, managers
+
     DIMENSIONS ::
         * playerid, namefirst, namelast, awardid, 
 		  yearid, lgid, teamid
+
     FACTS ::
         * None.
+
     FILTERS ::
         * managers who have won MotY in both AL and NL
+
     DESCRIPTION ::
         * First I made a cte that joined the awardsmanagers,
 		  people, and managers tables (on playerid for 
@@ -23,6 +28,7 @@
 		  but filtering for the AL league. I then joined the two
 		  ctes together on playerid, and selected distinct
 		  playerids, first and last name, NL team and AL team.
+
     ANSWER ::
         * Name: Davey Johnson 
 		  NL Team: WAS 
@@ -30,6 +36,7 @@
 		* Name: Jim Leyland
 		  NL Team: PIT
 		  AL Team: DET
+
 */
 
 WITH nl AS(

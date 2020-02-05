@@ -11,14 +11,19 @@
 		1970 – 2016 was it the case that a team with 
 		the most wins also won the world series? 
 		What percentage of the time?
+
     SOURCES ::
         * teams
+
     DIMENSIONS ::
         * teamid, wswin
+
     FACTS ::
         * MIN(w), MAX(w)
+
     FILTERS ::
         * only seasons from 1970 to 2016.
+
     DESCRIPTION ::
         * To find the max wins with no WS, I filtered
 		  for teams with wswin of 'N', years between
@@ -38,6 +43,7 @@
 		  and dividing by the number of seasons (46,
 		  disregarding 1994 where their was no WS) and
 		  multiplying by 100.
+
     ANSWER ::
         * max wins with no WS: SEA 2001, 116 wins
 		* min wins with WS win: SLN 2006, 83 wins
@@ -46,6 +52,7 @@
 		  season length was reduced.
 		* # of teams with most wins who won WS: 12
 		* Pct where team with most wins won WS: 26%
+
 */
 
 --Team with most wins and no WS
