@@ -6,7 +6,7 @@
 		managing when they won the award.
 
     SOURCES ::
-        * awardsmanagers, people, salaries
+        * awardsmanagers, people, managers
 
     DIMENSIONS ::
         * playerid, namefirst, namelast, awardid, 
@@ -65,8 +65,9 @@ WITH nl AS(
 	            AND am2.lgid = 'AL'
 		   ORDER BY am2.yearid
 		    )
-SELECT  DISTINCT ON(n.playerid) n.playerid, 
-                   n.namefirst, n.namelast,
+SELECT  DISTINCT ON(n.playerid) n.playerid AS player_id, 
+                   n.namefirst AS first_name, 
+				   n.namelast AS last_name,
                    n.teamid AS nl_award_team, 
 				   a.teamid AS al_award_team
 FROM nl AS n
