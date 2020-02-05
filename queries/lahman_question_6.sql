@@ -40,8 +40,8 @@
 
 */
 
-SELECT namefirst, namelast,
-	       sb, cs, sb+cs AS sba,
+SELECT namefirst AS first_name, namelast AS last_name,
+	       sb AS stl_b, cs AS c_stl, sb+cs AS stl_b_att,
 		   ROUND(
 			     CAST(
 					  (
@@ -49,10 +49,11 @@ SELECT namefirst, namelast,
 		              (CAST(sb + cs AS float)) * 100
 					  ) AS numeric
 				     ),2
-		         ) AS sb_pct
+		         ) AS stl_b_pct
 FROM batting AS batt
 JOIN people AS p
 ON batt.playerid = p.playerid
 WHERE yearid = 2016
       AND sb + cs >= 20
-ORDER BY sb_pct DESC;
+ORDER BY stl_b_pct DESC
+LIMIT 1;
