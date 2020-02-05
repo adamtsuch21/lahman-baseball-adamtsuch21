@@ -14,13 +14,13 @@
 
     SOURCES ::
         * teams
-		
+
     DIMENSIONS ::
         * teamid, wswin
-		
+
     FACTS ::
         * MIN(w), MAX(w)
-		
+
     FILTERS ::
         * only seasons from 1970 to 2016.
 
