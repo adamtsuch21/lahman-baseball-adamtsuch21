@@ -15,7 +15,7 @@
         * sort_pos
 
     FACTS ::
-        * tot_po
+        * total_po
 
     FILTERS ::
         * Only need putouts from the year 2016.
