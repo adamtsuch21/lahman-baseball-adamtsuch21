@@ -16,10 +16,10 @@
         * teams
 
     DIMENSIONS ::
-        * teamid, wswin
+        * team, wins, year
 
     FACTS ::
-        * MIN(w), MAX(w)
+        * MIN(w), MAX(w), ws_win_pct
 
     FILTERS ::
         * only seasons from 1970 to 2016.
