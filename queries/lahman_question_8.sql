@@ -30,7 +30,7 @@
 		ordered by avg_att in descending order with a limit of 5.
 		For the parks with the lowest attendance, I did the same 
 		thing but ordered avg_att in ascending order.
-
+    
     ANSWER ::
         * Top 5 highest attendance:
 			1. Dodger Stadium, 45719.90 avg_att
