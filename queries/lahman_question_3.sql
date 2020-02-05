@@ -10,46 +10,45 @@
 		  the majors?
 		
     SOURCES ::
-        * schoools, collegeplaying, people, salaries
+        * collegeplaying, people, salaries
 
     DIMENSIONS ::
         * playerid, firstname, lastname
 
     FACTS ::
         * total_salary
+		
     FILTERS ::
         * schoolid = 'vandy'
 
     DESCRIPTION ::
-        * First I had to join schools and 
-		  collegeplaying on schoolid to match playerid 
-		  with their schools. Then I joined people on 
-		  playerid to get the firstname, lastname of 
-		  those players. Then I joined salaries on 
-		  playerid to get the salaries of those players
-		  (using SUM to get the total_salary for each 
-		  player and selecting distinct player_ids). 
-		  I then filtered to only show players with a 
-		  schoolid of 'vandy' for Vanderbilt University.
-		  I then grouped by playerid, firstname, and 
-		  lastname and ordered by total_salary in 
-		  descending order to have the player with the 
-		  highest total_salary on top.
+        * First I created a subquery where I calculated the
+		  total salary for each playerid from salaries. I then
+		  joined that subquery with the collegeplaying table
+		  to get the schoolid for each playerid, and people
+		  to get the first and last name for each playerid.
+		  I then filtered for a schoolid of 'vandy' and ordered
+		  it by total salary in descending order.
 
     ANSWER ::
         David Price
 
 */
 
-SELECT DISTINCT p.playerid AS player_id, namefirst AS first_name,
-       namelast AS last_name, SUM(salary) as total_salary
-FROM schools AS sch
+SELECT DISTINCT s.playerid AS player_id, p.namefirst AS first_name,
+	   p.namelast AS last_name, total_sal
+FROM(
+	SELECT playerid, SUM(salary) AS total_sal
+	FROM salaries
+	GROUP BY playerid
+	ORDER BY total_sal DESC
+	) AS s
 JOIN collegeplaying AS cp
-ON sch.schoolid = cp.schoolid
+ON s.playerid = cp.playerid
 JOIN people AS p
 ON cp.playerid = p.playerid
-JOIN salaries AS s
-ON p.playerid = s.playerid
-WHERE sch.schoolid = 'vandy'
-GROUP BY p.playerid, first_name, last_name
-ORDER BY total_salary DESC;
+WHERE cp.schoolid = 'vandy'
+ORDER BY total_sal DESC;
+
+
+
