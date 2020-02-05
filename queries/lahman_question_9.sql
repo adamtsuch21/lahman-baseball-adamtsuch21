@@ -9,8 +9,8 @@
         * awardsmanagers, people, managers
 
     DIMENSIONS ::
-        * playerid, namefirst, namelast, awardid, 
-		  yearid, lgid, teamid
+        * player_id, first_name, last_name, nl_award_team
+		  al_award_team
 
     FACTS ::
         * None.
