@@ -8,10 +8,10 @@
         * people, appearances
 
     DIMENSIONS ::
-        * namefirst, namelast, teamid, games_played
+        *  first_name, last_name, team, games_played
 
     FACTS ::
-        * height
+        * height_in
 		
     FILTERS ::
         * Only show shortest player.
@@ -21,7 +21,7 @@
 		  table, and to get the games played and teamid
 		  I need the appearances table. So I joined the
 		  two tables (selecting namefirst, namelast, 
-		  height, g_all as games_played, and teamid) on
+		  height, g_all, and teamid) on
 		  the playerid, and ordered by height to have 
 		  the shortest player on top, and did a limit
 		  to only show the shortest player.
