@@ -16,7 +16,7 @@
         * namefirst, namelast
 
     FACTS ::
-        * sb_pct
+        * stlb_pct
 
     FILTERS ::
         * Only for year 2016.
@@ -36,12 +36,12 @@
 
     ANSWER ::
         Name: Chris Owings
-		sb_pct: 91.30 %
+		stlb_pct: 91.30 %
 
 */
 
 SELECT namefirst AS first_name, namelast AS last_name,
-	       sb AS stl_b, cs AS c_stl, sb+cs AS stl_b_att,
+	       sb AS stlb, cs AS cstl, sb+cs AS stlb_att,
 		   ROUND(
 			     CAST(
 					  (
@@ -49,11 +49,11 @@ SELECT namefirst AS first_name, namelast AS last_name,
 		              (CAST(sb + cs AS float)) * 100
 					  ) AS numeric
 				     ),2
-		         ) AS stl_b_pct
+		         ) AS stlb_pct
 FROM batting AS batt
 JOIN people AS p
 ON batt.playerid = p.playerid
 WHERE yearid = 2016
       AND sb + cs >= 20
-ORDER BY stl_b_pct DESC
+ORDER BY stlb_pct DESC
 LIMIT 1;
