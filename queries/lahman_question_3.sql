@@ -41,8 +41,8 @@
 
 */
 
-SELECT DISTINCT p.playerid, namefirst AS firstname,
-       namelast AS lastname, SUM(salary) as total_salary
+SELECT DISTINCT p.playerid AS player_id, namefirst AS first_name,
+       namelast AS last_name, SUM(salary) as total_salary
 FROM schools AS sch
 JOIN collegeplaying AS cp
 ON sch.schoolid = cp.schoolid
@@ -51,5 +51,5 @@ ON cp.playerid = p.playerid
 JOIN salaries AS s
 ON p.playerid = s.playerid
 WHERE sch.schoolid = 'vandy'
-GROUP BY p.playerid, firstname, lastname
+GROUP BY p.playerid, first_name, last_name
 ORDER BY total_salary DESC;

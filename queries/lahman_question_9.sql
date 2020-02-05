@@ -4,17 +4,17 @@
 		in both the National League (NL) and the American League 
 		(AL)? Give their full name and the teams that they were 
 		managing when they won the award.
-		
+
     SOURCES ::
         * awardsmanagers, people, managers
-		
+
     DIMENSIONS ::
         * playerid, namefirst, namelast, awardid, 
 		  yearid, lgid, teamid
-		  
+
     FACTS ::
         * None.
-		
+
     FILTERS ::
         * managers who have won MotY in both AL and NL
 

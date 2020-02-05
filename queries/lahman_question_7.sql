@@ -56,24 +56,24 @@
 */
 
 --Team with most wins and no WS
-SELECT teamid, w, yearid
+SELECT teamid AS team, w AS wins, yearid AS year
 FROM teams
 WHERE wswin = 'N'
 AND yearid BETWEEN 1970 AND 2016
 GROUP BY teamid, w, yearid
 HAVING w = MAX(w)
-ORDER BY w DESC
+ORDER BY wins DESC
 LIMIT 1;
 
 --Team with least wins and won WS
-SELECT teamid, w, yearid
+SELECT teamid AS team, w AS wins, yearid AS year
 FROM teams
 WHERE wswin = 'Y'
 AND yearid BETWEEN 1970 AND 2016
 AND yearid != 1981
 GROUP BY teamid, w, yearid
 HAVING w = MIN(w)
-ORDER BY w
+ORDER BY wins
 LIMIT 1;
 
 --Percentage of time team with most wins won WS
