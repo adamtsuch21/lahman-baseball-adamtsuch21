@@ -45,8 +45,8 @@ SELECT CASE WHEN pos = 'OF' THEN 'Outfield'
 			WHEN pos = 'P'  THEN 'Battery'
 			WHEN pos = 'C'  THEN 'Battery'
 			END AS sort_pos,
-		SUM(po) AS tot_po
+		SUM(po) AS total_po
 FROM fielding
 WHERE yearid = 2016
 GROUP BY sort_pos
-ORDER BY tot_po DESC;
+ORDER BY total_po DESC;
