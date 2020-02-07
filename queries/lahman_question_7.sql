@@ -45,8 +45,8 @@
 		  multiplying by 100.
 
     ANSWER ::
-        * max wins with no WS: SEA 2001, 116 wins
-		* min wins with WS win: SLN 2006, 83 wins
+        * max wins w/o WS: SEA 2001, 116 wins
+		* min wins w/ WS: SLN 2006, 83 wins
 		* LAN had min wins with WS win in 1981, 
 		  but there was a players strike so the 
 		  season length was reduced.
@@ -55,26 +55,38 @@
 
 */
 
---Team with most wins and no WS
-SELECT teamid AS team, w AS wins, yearid AS year
-FROM teams
-WHERE wswin = 'N'
-AND yearid BETWEEN 1970 AND 2016
-GROUP BY teamid, w, yearid
-HAVING w = MAX(w)
-ORDER BY wins DESC
-LIMIT 1;
-
---Team with least wins and won WS
-SELECT teamid AS team, w AS wins, yearid AS year
-FROM teams
-WHERE wswin = 'Y'
-AND yearid BETWEEN 1970 AND 2016
-AND yearid != 1981
-GROUP BY teamid, w, yearid
-HAVING w = MIN(w)
-ORDER BY wins
-LIMIT 1;
+/*query showing team with most wins w/o WS, and team with least
+  wins and WS*/
+WITH most_wins AS(
+				  SELECT teamid AS team, w AS wins, yearid AS year,
+				  CASE WHEN w = MAX(w) THEN 'Most wins w/o WS'
+				  END AS most_or_least
+				  FROM teams
+                  WHERE wswin = 'N'
+				  AND yearid BETWEEN 1970 AND 2016
+				  GROUP BY teamid, w, yearid
+				  HAVING w = MAX(w)
+				  ORDER BY wins DESC
+				  LIMIT 1
+	 			 ),
+	least_wins AS(
+				  SELECT teamid AS team, w AS wins, yearid AS year,
+		          CASE WHEN w = Min(w) THEN 'least wins w/ WS' 
+				  END AS most_or_least
+				  FROM teams
+                  WHERE wswin = 'Y'
+                  AND yearid BETWEEN 1970 AND 2016
+                  AND yearid != 1981
+                  GROUP BY teamid, w, yearid
+                  HAVING w = MIN(w)
+                  ORDER BY wins
+				  LIMIT 1
+		          )
+SELECT team, wins, year, most_or_least
+FROM most_wins
+UNION ALL
+SELECT team, wins, year, most_or_least
+FROM least_wins;
 
 --Percentage of time team with most wins won WS
 SELECT ROUND(
