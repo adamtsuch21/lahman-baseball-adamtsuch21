@@ -35,20 +35,27 @@
 
 */
 
-SELECT DISTINCT s.playerid AS player_id, p.namefirst AS first_name,
-	   p.namelast AS last_name, total_sal
+SELECT player_id, first_name, last_name, 
+	   CONCAT('$', total_sal::text) AS total_sal
 FROM(
-	SELECT playerid, SUM(salary) AS total_sal
-	FROM salaries
-	GROUP BY playerid
-	ORDER BY total_sal DESC
-	) AS s
-JOIN collegeplaying AS cp
-ON s.playerid = cp.playerid
-JOIN people AS p
-ON cp.playerid = p.playerid
-WHERE cp.schoolid = 'vandy'
-ORDER BY total_sal DESC;
+	 SELECT DISTINCT s.playerid AS player_id, 
+					 	 p.namefirst AS first_name,
+	   				 	 p.namelast AS last_name, 
+					 	 ROUND(total_sal,2) AS total_sal
+	 FROM(
+		  SELECT playerid, 
+		         SUM(CAST(salary AS integer)) AS total_sal
+		  FROM salaries
+	      GROUP BY playerid
+	      ORDER BY total_sal DESC
+	     ) AS s
+	 JOIN collegeplaying AS cp
+	 ON s.playerid = cp.playerid
+	 JOIN people AS p
+	 ON cp.playerid = p.playerid
+	 WHERE cp.schoolid = 'vandy'
+	 ORDER BY total_sal DESC
+	) AS sub;
 
 
 
