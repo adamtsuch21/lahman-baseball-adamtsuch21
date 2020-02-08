@@ -49,33 +49,44 @@
 */
 
 --Parks with highest avg_att
-SELECT team, park_name, 
-       ROUND(
-		     CAST(
-			      attendance::float/games::float AS numeric
-		         ), 2
-		     ) AS avg_att
-FROM homegames AS hg
-JOIN parks AS p
-ON hg.park = p.park
-WHERE games >= 10
-AND year = 2016
-GROUP BY team, park_name, attendance, games
-ORDER BY avg_att DESC
-LIMIT 5;
-
---Parks with lowest avg_att
-SELECT team, park_name, 
-       ROUND(
-		     CAST(
-			      attendance::float/games::float AS numeric
-		         ), 2
-		     ) AS avg_att
-FROM homegames AS hg
-JOIN parks AS p
-ON hg.park = p.park
-WHERE games >= 10
-AND year = 2016
-GROUP BY team, park_name, attendance, games
-ORDER BY avg_att
-LIMIT 5;
+WITH most_att AS(
+				 SELECT team, park_name, 
+       					ROUND(
+		     				  CAST(
+			      					attendance::float/games::float 
+								    AS numeric
+		         				   ), 2
+		                     ) AS avg_att,
+						 'Highest Attendance Top 5' AS att_rank
+                 FROM homegames AS hg
+				 JOIN parks AS p
+	   			 ON hg.park = p.park
+				 WHERE games >= 10
+				 	AND year = 2016
+  				 GROUP BY team, park_name, attendance, games
+				 ORDER BY avg_att DESC
+				 LIMIT 5
+				),
+least_att AS(
+			 SELECT team, park_name, 
+       				ROUND(
+		     			  CAST(
+			      			   attendance::float/games::float
+							   AS numeric
+		         			  ), 2
+		     			 ) AS avg_att,
+				    'Lowest Attendance Top 5' AS att_rank
+			 FROM homegames AS hg
+		     JOIN parks AS p
+		     ON hg.park = p.park
+			 WHERE games >= 10
+				AND year = 2016
+			GROUP BY team, park_name, attendance, games
+			ORDER BY avg_att
+			LIMIT 5
+			)
+SELECT team, park_name, avg_att, att_rank
+FROM most_att
+UNION ALL
+SELECT team, park_name, avg_att, att_rank
+FROM least_att;
