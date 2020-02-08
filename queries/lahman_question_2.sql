@@ -36,10 +36,13 @@
 */
 
 SELECT namefirst AS first_name, namelast AS last_name, 
-	   height AS height_in, g_all AS games_played, teamid AS team
+	   height AS height_in, g_all AS games_played, app.teamid AS team,
+	   name AS team_name
 FROM people AS p
 JOIN appearances AS app
 ON p.playerid = app.playerid
+JOIN teams AS t
+ON app.teamid = t.teamid
 ORDER BY height_in
 LIMIT 1;
 	   
